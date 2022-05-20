@@ -9,11 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class AlbumListFregment extends Fragment {
+public class FavoriteFregment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup albumlist = (ViewGroup) inflater.inflate(R.layout.fragment_albumlist,container,false);
-        return albumlist;
+        ViewGroup favorite = (ViewGroup) inflater.inflate(R.layout.fragment_favorit,container,false);
+        return favorite;
     }
 }

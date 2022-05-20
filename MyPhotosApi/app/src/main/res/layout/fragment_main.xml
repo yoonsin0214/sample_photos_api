@@ -54,7 +54,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="All photos" />
+                                android:text="All Photos" />
                         </LinearLayout>
 
 
@@ -85,7 +85,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="album list" />
+                                android:text="Album List" />
 
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
@@ -121,7 +121,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="find use hashtag" />
+                                android:text="Find use HashTag" />
                         </LinearLayout>
 
 
@@ -136,7 +136,7 @@
                         app:cardUseCompatPadding="true">
 
                         <LinearLayout
-                            android:id="@+id/search_box"
+                            android:id="@+id/favorite_box"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
@@ -146,12 +146,12 @@
                             <ImageView
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
-                                android:src="@drawable/searching" />
+                                android:src="@drawable/favorite" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="search" />
+                                android:text="Favorite" />
 
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
