@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements
     AllPhotoFragment allPhotoFragment;
     AlbumFragment albumFragment;
     FilterFragment filterFragment;
+    FavoriteFragment favoriteFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements
         allPhotoFragment= new AllPhotoFragment();
         albumFragment = new AlbumFragment();
         filterFragment = new FilterFragment();
+        favoriteFragment = new FavoriteFragment();
 
     }
 
@@ -189,6 +191,11 @@ public class MainActivity extends AppCompatActivity implements
                         .commit();
                 break;
             case 5:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container,favoriteFragment)
+                        .addToBackStack(null)
+                        .commit();
+                break;
             default:
                 getSupportFragmentManager().beginTransaction().remove(startCardFragment).commit();
         }

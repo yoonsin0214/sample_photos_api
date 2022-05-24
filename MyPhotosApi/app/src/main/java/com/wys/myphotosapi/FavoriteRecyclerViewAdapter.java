@@ -5,18 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<PhotosRecyclerViewAdapter.PhotoViewHolder> {
+public class FavoriteRecyclerViewAdapter extends RecyclerView.Adapter<FavoriteRecyclerViewAdapter.PhotoViewHolder> {
     Context context;
     ArrayList<PhotosItem> items = new ArrayList<PhotosItem>();
 
-    public PhotosRecyclerViewAdapter (Context context) {
+    public FavoriteRecyclerViewAdapter(Context context) {
         this.context = context;
         this.items = items;
     }
@@ -29,7 +28,7 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<PhotosRecycl
     @Override
     public PhotoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {  // viewholder가 만들어지는 시점에 호출. 재사용된다면 생성되지 않아서 service를 하나 생성해줘야함
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.photo_item, parent, false); // 최상위 layout
+        View view = inflater.inflate(R.layout.item_favorite, parent, false); // 최상위 layout
 
         return new PhotoViewHolder(view);
     }
@@ -52,17 +51,12 @@ public class PhotosRecyclerViewAdapter extends RecyclerView.Adapter<PhotosRecycl
         return items.get(position);
     }
 
-    public long getItemId(int id) {
-        return id;
-    }
-
     static class PhotoViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-      //  TextView textView;
 
         public PhotoViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.recylcerview_photoimage);
+            imageView = (ImageView) itemView.findViewById(R.id.favorite_imageView);
 
         }
             public void setItem(PhotosItem item) {//내가 만든 이미지 리소스를 viewholder에 선언

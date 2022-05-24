@@ -1,7 +1,6 @@
 package com.wys.myphotosapi;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,7 @@ public class AlbumRecyclerViewAdapter extends RecyclerView.Adapter<AlbumRecycler
     @Override
     public AlbumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {  // viewholder가 만들어지는 시점에 호출. 재사용된다면 생성되지 않아서 service를 하나 생성해줘야함
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.album_item, parent, false); // 최상위 layout
+        View view = inflater.inflate(R.layout.item_album, parent, false); // 최상위 layout
 
         return new AlbumViewHolder(view);
     }
@@ -61,7 +60,7 @@ public class AlbumRecyclerViewAdapter extends RecyclerView.Adapter<AlbumRecycler
         public AlbumViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.album_imageView);
-            textView = (TextView) itemView.findViewById(R.id.album_name);
+            textView = (TextView) itemView.findViewById(R.id.album_textView);
 
         }
             public void setItem(PhotosItem item) {//내가 만든 이미지 리소스를 viewholder에 선언

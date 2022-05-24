@@ -12,29 +12,32 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class AlbumFragment extends Fragment {
+public class FavoriteFragment extends Fragment {
     RecyclerView recyclerView;
     GridLayoutManager gridLayoutManager;
-    AlbumRecyclerViewAdapter adapter;
+    FavoriteRecyclerViewAdapter adapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ViewGroup album_recyclerview = (ViewGroup) inflater.inflate(R.layout.fragment_photo_items,container,false);
+        ViewGroup favorite_recyclerview = (ViewGroup) inflater.inflate(R.layout.fragment_photo_items,container,false);
 
-        recyclerView = (RecyclerView) album_recyclerview.findViewById(R.id.recyclerview);
-        gridLayoutManager = new GridLayoutManager(getActivity(),2);
+        recyclerView = (RecyclerView) favorite_recyclerview.findViewById(R.id.recyclerview);
+        gridLayoutManager = new GridLayoutManager(getActivity(),3);
         recyclerView.setLayoutManager(gridLayoutManager); // grid로 화면 구성됨
 
 
 // datapter 사용해서 photo api 써서 여기로 다운
-        adapter = new AlbumRecyclerViewAdapter(getActivity());
-        adapter.addItem(new PhotosItem("MyFriend", R.drawable.album));
+        adapter = new FavoriteRecyclerViewAdapter(getActivity());
+        adapter.addItem(new PhotosItem("MyFriend", R.drawable.shark2));
+        adapter.addItem(new PhotosItem("MyFriend", R.drawable.shark2));
+        adapter.addItem(new PhotosItem("MyFriend", R.drawable.shark2));
+        adapter.addItem(new PhotosItem("MyFriend", R.drawable.shark));
         recyclerView.setAdapter(adapter);
 
 
 
-        return album_recyclerview;
+        return favorite_recyclerview;
     }
 
 

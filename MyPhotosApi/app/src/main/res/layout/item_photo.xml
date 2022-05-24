@@ -6,9 +6,9 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:id="@+id/photo_imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/recylcerview_photoimage"
         android:src="@mipmap/ic_launcher_round"
         android:adjustViewBounds="true"/>
 
