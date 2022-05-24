@@ -3,7 +3,6 @@ package com.wys.myphotosapi;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,12 +14,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.wys.myphotosapi.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements
         View.OnClickListener {
@@ -31,11 +28,10 @@ public class MainActivity extends AppCompatActivity implements
     private GoogleSignInClient mGoogleSignInClient;
     private TextView mStatusTextView;
 
-    MainFregment first_table;
-    AllPhotosFragment all_photos;
-    AlbumListFregment album_list;
-    HashTagFregment hashtag;
-    FavoriteFregment favorite;
+    StartCardFragment startCardFragment;
+    AllPhotoFragment allPhotoFragment;
+    AlbumFragment albumFragment;
+    FilterFragment filterFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,11 +66,10 @@ public class MainActivity extends AppCompatActivity implements
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         // [END build_client]
 
-        first_table = new MainFregment();
-        all_photos = new AllPhotosFragment();
-        album_list = new AlbumListFregment();
-        hashtag = new HashTagFregment();
-        favorite = new FavoriteFregment();
+        startCardFragment = new StartCardFragment();
+        allPhotoFragment= new AllPhotoFragment();
+        albumFragment = new AlbumFragment();
+        filterFragment = new FilterFragment();
 
     }
 
@@ -145,40 +140,6 @@ public class MainActivity extends AppCompatActivity implements
     }
     // [END signOut]
 
-    public void onFragmentChange(int index) {
-        switch (index) {
-            case 1:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, first_table).commit();
-                break;
-            case 2:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, all_photos)
-                        .addToBackStack(null)
-                        .commit();
-                break;
-            case 3:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, album_list)
-                        .addToBackStack(null)
-                        .commit();
-                break;
-            case 4:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, hashtag)
-                        .addToBackStack(null)
-                        .commit();
-                break;
-            case 5:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container, favorite)
-                        .addToBackStack(null)
-                        .commit();
-                break;
-            default:
-                getSupportFragmentManager().beginTransaction().remove(first_table).commit();
-        }
-    }
-
     private void updateUI(@Nullable GoogleSignInAccount account) {
         if (account != null) {
             mStatusTextView.setText(getString(R.string.username, account.getDisplayName()));
@@ -204,4 +165,32 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    public void onFragmentChange(int index) {
+        switch (index) {
+            case 1:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, startCardFragment).commit();
+                break;
+            case 2:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, allPhotoFragment)
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            case 3:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container,albumFragment)
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            case 4:
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container,filterFragment)
+                        .addToBackStack(null)
+                        .commit();
+                break;
+            case 5:
+            default:
+                getSupportFragmentManager().beginTransaction().remove(startCardFragment).commit();
+        }
+    }
 }
