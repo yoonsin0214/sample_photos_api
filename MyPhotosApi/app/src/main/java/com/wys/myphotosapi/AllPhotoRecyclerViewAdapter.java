@@ -65,6 +65,7 @@ public class AllPhotoRecyclerViewAdapter extends RecyclerView.Adapter<AllPhotoRe
         }
             public void setItem(PhotosItem item) {//내가 만든 이미지 리소스를 viewholder에 선언
             imageView.setImageResource(item.getImage());
+
         }
 
     }

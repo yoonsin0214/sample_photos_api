@@ -1,14 +1,14 @@
 package com.wys.myphotosapi;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements
         // [END build_client]
 
         startCardFragment = new StartCardFragment();
-        allPhotoFragment= new AllPhotoFragment();
+        allPhotoFragment = new AllPhotoFragment();
         albumFragment = new AlbumFragment();
         filterFragment = new FilterFragment();
         favoriteFragment = new FavoriteFragment();
@@ -105,9 +105,12 @@ public class MainActivity extends AppCompatActivity implements
     // [START handleSignInResult]
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
+            Intent photologin = new Intent(MainActivity.this, GoogleOAuthActivity.class);
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             // Signed in successfully, show authenticated UI.
+            startActivity(photologin);
             updateUI(account);
+
             onFragmentChange(1);
 
         } catch (ApiException e) {
@@ -123,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);//deprecated �޼��� ���� �ʿ�
+
     }
     // [END signIn]
 
@@ -180,19 +184,19 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case 3:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container,albumFragment)
+                        .replace(R.id.container, albumFragment)
                         .addToBackStack(null)
                         .commit();
                 break;
             case 4:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container,filterFragment)
+                        .replace(R.id.container, filterFragment)
                         .addToBackStack(null)
                         .commit();
                 break;
             case 5:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.container,favoriteFragment)
+                        .replace(R.id.container, favoriteFragment)
                         .addToBackStack(null)
                         .commit();
                 break;
@@ -200,4 +204,6 @@ public class MainActivity extends AppCompatActivity implements
                 getSupportFragmentManager().beginTransaction().remove(startCardFragment).commit();
         }
     }
+
+
 }

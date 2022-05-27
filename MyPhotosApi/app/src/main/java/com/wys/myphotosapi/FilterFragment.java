@@ -1,8 +1,6 @@
 package com.wys.myphotosapi;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import android.text.TextWatcher;
 
 
 public class FilterFragment extends Fragment {
