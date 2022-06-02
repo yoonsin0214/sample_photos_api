@@ -28,8 +28,8 @@ import java.security.GeneralSecurityException;
 
 public class GoogleOAuthActivity extends Activity {
     private static final String TAG = "GoogleOAuthActivity";
+    public static final String ACTION_SUCCESS_AUTH_GOOGLE_API = "com.wys.photosapi.action.SUCCESS_AUTH_GOOGLE_API";
 
-    private Credential credential;
     private static final int MSG_UPDATE_AUTH_STATUS = 0;
     private static final int MSG_OPEN_AUTH_WEB_VIEW = 1;
 
@@ -40,42 +40,37 @@ public class GoogleOAuthActivity extends Activity {
         STATUS_AUTH,
     }
 
-    private Credential Credential;
-    private Button ButtonAuth;
-    private WebView WebView;
+    private Credential credential;
 
-    public static final String ACTION_SUCCESS_AUTH_GOOGLE_API = "com.wys.photosapi.action.SUCCESS_AUTH_GOOGLE_API";
+    private Button ButtonAuth, Button_ok;
+    private WebView webView;
 
-    private Handler mUIHandler = new Handler(Looper.getMainLooper()) {
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            if (msg.what == MSG_UPDATE_AUTH_STATUS) {
-                onAuthStatusChanged((AuthStatus) msg.obj);
-            } else if (msg.what == MSG_OPEN_AUTH_WEB_VIEW) {
-                String url = (String) msg.obj;
-                WebView.loadUrl(url);
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitivity_google_oauth);
 
-        WebView = findViewById(R.id.webview);
-        setWebView();
-
-        ButtonAuth = findViewById(R.id.btn_auth);
+        ButtonAuth = (Button) findViewById(R.id.btn_auth);
         ButtonAuth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 runOAuth();
             }
         });
+        webView = findViewById(R.id.webview);
+        setWebView();
+
+        Button_ok = (Button) findViewById(R.id.btn_auth_ok);
+        Button_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         try {
-            credential = GoogleOAuthFactory.getUserCredentials(this);
+            credential = GoogleOAuthFactory.getCredential(this);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (GeneralSecurityException e) {
@@ -84,8 +79,20 @@ public class GoogleOAuthActivity extends Activity {
         sendAuthUpdateMessage(credential == null ? AuthStatus.STATUS_NOT_AUTH : AuthStatus.STATUS_AUTH);
     }
 
+    private Handler mUIHandler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            if (msg.what == MSG_UPDATE_AUTH_STATUS) {
+                onAuthStatusChanged((AuthStatus) msg.obj);
+            } else if (msg.what == MSG_OPEN_AUTH_WEB_VIEW) {
+                String url = (String) msg.obj;
+                webView.loadUrl(url);
+            }
+        }
+    };
+
+
     private void setWebView() {
-        WebView webView = WebView;
         if (webView == null) {
             return;
         }
@@ -133,7 +140,7 @@ public class GoogleOAuthActivity extends Activity {
            @Override
            public void run () {
                try {
-                   LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(GoogleOAuthFactory.PORT_REDIRECTION_LOCAL_SERVER).build();
+                   LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(GoogleOAuthFactory.LOCAL_RECEIVER_PORT).build();
                    AuthorizationCodeInstalledApp acia = new AuthorizationCodeInstalledApp(GoogleOAuthFactory.getGoogleAuthorizationCodeFlow(GoogleOAuthActivity.this), receiver) {
                        @Override
                        protected void onAuthorization(AuthorizationCodeRequestUrl authorizationUrl) throws IOException {
@@ -163,4 +170,5 @@ public class GoogleOAuthActivity extends Activity {
            }
         }.start();
     }
+
 }

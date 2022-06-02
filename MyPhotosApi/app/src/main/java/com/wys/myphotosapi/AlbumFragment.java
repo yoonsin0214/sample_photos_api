@@ -25,18 +25,12 @@ public class AlbumFragment extends Fragment {
         recyclerView = (RecyclerView) album_recyclerview.findViewById(R.id.recyclerview);
         gridLayoutManager = new GridLayoutManager(getActivity(),2);
         recyclerView.setLayoutManager(gridLayoutManager); // grid로 화면 구성됨
-
+        adapter = new AlbumRecyclerViewAdapter(getActivity());
 
 // datapter 사용해서 photo api 써서 여기로 다운
-        adapter = new AlbumRecyclerViewAdapter(getActivity());
-        adapter.addItem(new PhotosItem("MyFriend", R.drawable.album));
+        //adapter.addItem(new PhotosItem("MyFriend", R.drawable.album));
         recyclerView.setAdapter(adapter);
-
-
 
         return album_recyclerview;
     }
-
-
-
 }
