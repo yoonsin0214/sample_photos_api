@@ -10,22 +10,36 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.photos.types.proto.Album;
+
 import java.util.ArrayList;
 
 public class AlbumRecyclerViewAdapter extends RecyclerView.Adapter<AlbumRecyclerViewAdapter.AlbumViewHolder> {
     Context context;
-    ArrayList<PhotosItem> items = new ArrayList<PhotosItem>();
+    private static ArrayList<Album> albums;
 
-    public AlbumRecyclerViewAdapter(Context context) {
+    public interface OnItemClickListener {
+        void onItemClick(View v, int position);
+    }
+
+    private static OnItemClickListener mListener = null;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener;
+    }
+
+    public AlbumRecyclerViewAdapter(Context context, ArrayList<Album> albums) {
         this.context = context;
-        this.items = items;
+        this.albums = albums;
     }
 
     @NonNull
     @Override
     public int getItemCount() {  // item의 갯수?
-        return items.size();
+        return albums.size();
     }
+
     @Override
     public AlbumViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {  // viewholder가 만들어지는 시점에 호출. 재사용된다면 생성되지 않아서 service를 하나 생성해줘야함
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -36,21 +50,26 @@ public class AlbumRecyclerViewAdapter extends RecyclerView.Adapter<AlbumRecycler
 
     @Override
     public void onBindViewHolder(@NonNull AlbumViewHolder holder, int position) {   //binding data와 dataholoder나 xml layout과 결합되는 경우를 의미. on이 붙으면 자동으로 결합된다.
-        PhotosItem item = items.get(position); //몇번째 뷰인지를 보여주는것
+        Album album = albums.get(position); //몇번째 뷰인지를 보여주는것
 
-        holder.setItem(item);
+        Glide.with(context)
+                .load(album.getCoverPhotoBaseUrl())
+                .into(holder.imageView);
+
+        holder.textView.setText(album.getTitle());
+
     }
 
-    public void addItem(PhotosItem item) {
-        items.add(item);
+    public void addItem(Album album) {
+        albums.add(album);
     }
 
-    public void addItems(ArrayList<PhotosItem> items) {
-        this.items = items;
+    public void addItems(ArrayList<Album> albums) {
+        this.albums = albums;
     }
 
-    public PhotosItem getItem(int position) {
-        return items.get(position);
+    public Album getItem(int position) {
+        return albums.get(position);
     }
 
     static class AlbumViewHolder extends RecyclerView.ViewHolder {
@@ -62,15 +81,20 @@ public class AlbumRecyclerViewAdapter extends RecyclerView.Adapter<AlbumRecycler
             imageView = (ImageView) itemView.findViewById(R.id.album_imageView);
             textView = (TextView) itemView.findViewById(R.id.album_textView);
 
-        }
-            public void setItem(PhotosItem item) {//내가 만든 이미지 리소스를 viewholder에 선언
-            //imageView.setImageResource(item.getImage());
-            textView.setText(item.getName());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = getBindingAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION) {
+                        if (mListener != null) {
+                            mListener.onItemClick(view, pos);
+                        }
 
+                    }
+                }
+            });
 
         }
 
     }
-
-
 }

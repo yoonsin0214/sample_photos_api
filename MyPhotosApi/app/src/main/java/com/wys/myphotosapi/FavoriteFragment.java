@@ -29,14 +29,8 @@ public class FavoriteFragment extends Fragment {
 
 // datapter 사용해서 photo api 써서 여기로 다운
         adapter = new FavoriteRecyclerViewAdapter(getActivity());
-        adapter.addItem(new PhotosItem("MyFriend", R.drawable.shark2));
-        adapter.addItem(new PhotosItem("MyFriend", R.drawable.shark2));
-        adapter.addItem(new PhotosItem("MyFriend", R.drawable.shark2));
-        adapter.addItem(new PhotosItem("MyFriend", R.drawable.shark));
         recyclerView.setAdapter(adapter);
-
-
-
+		
         return favorite_recyclerview;
     }
 

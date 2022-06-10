@@ -116,12 +116,12 @@
                             <ImageView
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
-                                android:src="@drawable/hashtag" />
+                                android:src="@drawable/filter" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Find use HashTag" />
+                                android:text="Filter" />
                         </LinearLayout>
 
 
@@ -146,12 +146,12 @@
                             <ImageView
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
-                                android:src="@drawable/favorite" />
+                                android:src="@drawable/idea" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Favorite" />
+                                android:text="Any Ideas" />
 
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>

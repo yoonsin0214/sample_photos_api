@@ -6,6 +6,9 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -43,8 +46,10 @@ public class MainActivity extends AppCompatActivity{
     private void OAuthLogin(){
         Intent OAuthLogin = new Intent(MainActivity.this, GoogleOAuthActivity.class);
         startActivity(OAuthLogin);
+        findViewById(R.id.button_login).setVisibility(View.INVISIBLE);
         onFragmentChange(1);
     }
+
     public void onFragmentChange(int index) {
         switch (index) {
             case 1:
@@ -79,5 +84,9 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-
+    public void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment).addToBackStack(null).commit();
+    }
 }
